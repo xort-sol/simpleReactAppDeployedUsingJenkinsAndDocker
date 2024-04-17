@@ -17,7 +17,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    bat 'docker build -t simple-reactjs-app-master:tag .'
+                    bat 'docker build -t simple-reactjs-app-master:tag . -f Dockerfile.txt'
                 }
             }
         }
