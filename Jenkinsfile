@@ -17,7 +17,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build('my-web-app')
+                    bat 'docker build -t simple-reactjs-app-master:tag .'
                 }
             }
         }
@@ -25,7 +25,7 @@ pipeline {
         stage('Run Docker Image') {
             steps {
                 script {
-                    docker.image('my-web-app').run("-p 8080:80 -d")
+                    bat 'docker run -d -p host-port:8090 simple-reactjs-app-master'
                 }
             }
         }
@@ -34,7 +34,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                        docker.image('my-web-app').push('latest')
+                        docker.image('simple-reactjs-app-master').push('latest')
                     }
                 }
             }
